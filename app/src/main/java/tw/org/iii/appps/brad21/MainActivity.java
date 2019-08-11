@@ -1,5 +1,6 @@
 package tw.org.iii.appps.brad21;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Fragment[] fs = new Fragment[5];
     private ActionBar actionBar;
+    private String[] titles = {"Page1", "Page2", "Page3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         fs[3] = new P3();
         fs[4] = new P4();
 
+        initActionBar();
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
@@ -40,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(1);
                 }else if (position == 4){
                     viewPager.setCurrentItem(3);
+                }else{
+                    actionBar.setSelectedNavigationItem(position-1);
                 }
             }
         });
         viewPager.setCurrentItem(1);
-        initActionBar();
+
     }
 
     private void initActionBar(){
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-            viewPager.setCurrentItem(tab.getPosition());
+            viewPager.setCurrentItem(tab.getPosition()+1);
         }
 
         @Override
@@ -101,6 +106,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return fs.length;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String title = "";
+            if (position != 0 && position != 4){
+                title = titles[position-1];
+            }
+            return title;
         }
     }
 
