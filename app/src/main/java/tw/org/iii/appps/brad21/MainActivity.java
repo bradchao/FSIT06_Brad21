@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -25,6 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
+    }
+
+    public void gotoPage1(View view) {
+        viewPager.setCurrentItem(0);
+    }
+
+    public void gotoPage2(View view) {
+        viewPager.setCurrentItem(1);
+    }
+
+    public void gotoPage3(View view) {
+        viewPager.setCurrentItem(2);
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
